@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login & Registration Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="nav">
+        <input type="checkbox" id="nav-check">
+        <div class="nav-header">
+          <div class="nav-title">
+            Aimé
+          </div>
+        </div>
+        <div class="nav-btn">
+          <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+        
+        <div class="nav-links">
+          <a href="Homepage.html">HOME</a>
+          <a href="about.html">ABOUT</a>
+          <a href="portfolio.html">PORTFOLIO</a>
+          <a href="blogs.html">BLOG</a>
+          <a href="contact.html">CONTACT</a>
+          <a href="login.html">LOGIN</a>
+        </div>
+      </div>
+
+
+  <div class="logcontainer">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Login</header>
+      <form action="#" id="login">
+        <input type="text" placeholder="Enter your email" id="logemail" required>
+        <div class="error" id="logmailerr"></div>
+        <input type="password" placeholder="Enter your password" id="logpassword" required>
+        <div class="error" id="logpasserr"></div>
+        <a href="#">Forgot password?</a>
+        <input type="submit" class="button" value="Login">
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+         <label for="check">Signup</label>
+        </span>
+      </div>
+    </div>
+    <div class="registration form">
+      <header>Signup</header>
+      <form action="#" id="signup">
+        <input type="text" placeholder="Enter your Names" id="signname" required>
+        <input type="text" placeholder="Enter your email" id="signemail" required>
+        <div class="error" id="mailerr"></div>
+        <input type="password" placeholder="Create a password" id="signpassword" required>
+        <div class="error" id="passerr"></div>
+        <input type="password" placeholder="Confirm your password" id="signconfirmPassword" required>
+        <div class="error" id="conferr">
+
+        </div>
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check">Login</label>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="log-footer">
+  
+    <ul class="social-network social-circle">
+      <!--<li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>-->
+      <li><a href="https://www.facebook.com/aimebrues.shyaka" class="icoFacebook" title="Facebook" target="_blank" ><i class="fab fa-facebook"></i></a></li>
+      <li><a href="https://twitter.com/SHYAKAAim1?s=07" class="icoTwitter" title="Twitter" target="_blank"><i class="fas fa-x-twitter"></i></a></li>
+      <li><a href="https://www.instagram.com/_aimebrues/?hl=en" class="icoInstagram" title="instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
+      <li><a href="https://www.youtube.com/channel/UC0TUlI9UixIj-GQyN0rA7oQ" class="icoYoutube" title="Youtube" target="_blank"><i class="fab fa-youtube"></i></a></li>
+      <li><a href="https://wa.me/<+250780085493> " class="icoWhatsapp" title="whatsapp" target="_blank"><i class="fab fa-whatsapp" ></i></a></li>
+    </ul>
+    <div class="subscribe">
+      <div class="subhead"><p>Subscribe To Our Updates</p></div>
+    <form>
+      <input type="text" placeholder="Full Name">
+      <input type="email" placeholder="Email">
+      <input type="submit" value="Subscribe">
+    </form>
+    </div>
+</footer>
+<script>
+  const signup = document.getElementById('signup');
+  const login = document.getElementById('login');
+  const email = document.getElementById('signemail');
+  const password = document.getElementById('signpassword');
+  const confirmPassword = document.getElementById('signconfirmPassword');
+  const logemail = document.getElementById('logemail');
+  const logpassword = document.getElementById('logpassword');
+  const mailerr = document.getElementById('mailerr');
+  const passerr = document.getElementById('passerr');
+  const conferr = document.getElementById('conferr');
+  const logmailerr = document.getElementById('logmailerr');
+  const logpasserr = document.getElementById('logpasserr');
+
+  signup.addEventListener('submit', function (event) {
+
+      if (!validateEmail(email.value)) {
+        mailerr.innerHTML="Invalid Email!";
+      }else{
+        mailerr.innerHTML="";
+      }
+
+      if (password.value.length < 6) {
+          passerr.innerHTML="Password must be at least 6 characters";
+      }else{
+        passerr.innerHTML="";
+      }
+
+      if (password.value !== confirmPassword.value) {
+          conferr.innerHTML="Passwords do not match";
+      }else{
+        conferr.innerHTML="";
+      }
+  });
+
+
+login.addEventListener('submit', function (event) {
+
+if (!validateEmail(logemail.value)) {
+  logmailerr.innerHTML="Invalid Email!";
+}else{
+  logmailerr.innerHTML="";
+}
+
+if (logpassword.value.length < 6) {
+    logpasserr.innerHTML="Password must be at least 6 characters";
+}else{
+  logpasserr.innerHTML="";
+}
+});
+
+  function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+  }
+</script>
+
+</body>
+</html>
