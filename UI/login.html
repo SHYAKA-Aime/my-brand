@@ -111,7 +111,7 @@
   const logpasserr = document.getElementById('logpasserr');
 
   signup.addEventListener('submit', function (event) {
-
+    event.preventDefault();
       if (!validateEmail(email.value)) {
         mailerr.innerHTML="Invalid Email!";
       }else{
@@ -133,7 +133,7 @@
 
 
 login.addEventListener('submit', function (event) {
-
+event.preventDefault();
 if (!validateEmail(logemail.value)) {
   logmailerr.innerHTML="Invalid Email!";
 }else{
@@ -145,6 +145,11 @@ if (logpassword.value.length < 6) {
 }else{
   logpasserr.innerHTML="";
 }
+
+if(logemail.value=="shyaka@admin.com" && logpassword.value=="bruest2500"){
+  window.location.href="../UI/Admin/dashboard.html";
+}
+
 });
 
   function validateEmail(email) {
