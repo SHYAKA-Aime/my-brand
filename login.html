@@ -159,7 +159,7 @@ signupForm.addEventListener('submit', async function(event) {
 
   if (valid) {
     try {
-      const response = await fetch('http://localhost:3000/api/auth/signup', {
+      const response = await fetch('https://mybrandbackend-gi30.onrender.com/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -211,9 +211,9 @@ loginForm.addEventListener('submit', async function(event) {
   }
 
   try {
-    let loginRoute = 'http://localhost:3000/api/auth/login'; // Default to user login
+    let loginRoute = 'https://mybrandbackend-gi30.onrender.com/api/auth/login'; // Default to user login
     if (logemail.value === "shyaka@admin.com" && logpassword.value === "admin123") {
-      loginRoute = 'http://localhost:3000/api/auth/adminlogin'; // Use admin login route for admin
+      loginRoute = 'https://mybrandbackend-gi30.onrender.com/api/auth/adminlogin'; // Use admin login route for admin
       isAdmin=true;
     }
 

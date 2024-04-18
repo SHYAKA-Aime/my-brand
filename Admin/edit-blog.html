@@ -78,7 +78,7 @@
    const queryParams = new URLSearchParams(window.location.search);
    const blogId = queryParams.get('id'); 
    
-   fetch(`http://localhost:3000/api/blogs/${blogId}`)
+   fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}`)
   .then(response => response.json())
   .then(blog => {
     // Fill the form with the blog's current data
@@ -116,7 +116,7 @@
     }
         const formData = new FormData(blogForm);
         try {
-            const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`, {
+            const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}`, {
                 method: 'PUT',
                 headers: {
                 'Authorization': `Bearer ${adminToken}`, // Include the token in the request headers

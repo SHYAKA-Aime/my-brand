@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     try {
         // Function to fetch and update blog list
         async function fetchAndUpdateBlogList() {
-            const response = await fetch('http://localhost:3000/api/blogs');
+            const response = await fetch('https://mybrandbackend-gi30.onrender.com/api/blogs');
             const data = await response.json();
 
             if (response.ok) {
@@ -111,7 +111,7 @@ function deletebtn() {
             }
 
             try {
-                const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`, {
+                const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${adminToken}`
@@ -134,7 +134,7 @@ function deletebtn() {
 // Function to fetch and update counts
 async function fetchCounts() {
     try {
-        const response = await fetch('http://localhost:3000/api/countings', {
+        const response = await fetch('https://mybrandbackend-gi30.onrender.com/api/countings', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

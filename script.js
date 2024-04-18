@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const blogsList = document.querySelector('.blogs-list');
 
     try {
-        const response = await fetch('http://localhost:3000/api/blogs');
+        const response = await fetch('https://mybrandbackend-gi30.onrender.com/api/blogs');
         const data = await response.json();
 
         if (response.ok) {
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const likeButton=document.getElementById('likeBtn');
   
     try {
-      const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`);
+      const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}`);
       const blog = await response.json();
   
       if (response.ok) {
@@ -225,7 +225,7 @@ const blogId = queryParams.get('id');
 
         const userToken= localStorage.getItem('userToken');
         try {
-            const response = await fetch(`http://localhost:3000/api/blogs/${blogId}/like`, {
+            const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}/like`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -256,7 +256,7 @@ const blogId = queryParams.get('id');
     const blogId = queryParams.get('id');
     const userToken= localStorage.getItem('userToken');
     try {
-        const response = await fetch(`http://localhost:3000/api/blogs/${blogId}/comment`, {
+        const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}/comment`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ async function loadComments() {
 
     async function fetchAndUpdateComments() {
         try {
-            const response = await fetch(`http://localhost:3000/api/blogs/${blogId}/comments`,{
+            const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}/comments`,{
                 headers: {
                     'Authorization': `Bearer ${userToken}`
                 },
@@ -334,7 +334,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async functi
     const fullNameInput = document.getElementById('fullName');
     const emailInput = document.getElementById('email');
     try {
-        const response = await fetch('http://localhost:3000/api/subscribe', {
+        const response = await fetch('https://mybrandbackend-gi30.onrender.com/api/subscribe', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

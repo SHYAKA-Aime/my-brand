@@ -34,7 +34,7 @@
     const subscribersList = document.querySelector('.subscribers-list');
 
     try {
-        const response = await fetch('http://localhost:3000/api/subscribers');
+        const response = await fetch('https://mybrandbackend-gi30.onrender.com/api/subscribers');
         const data = await response.json();
 
         if (response.ok) {
