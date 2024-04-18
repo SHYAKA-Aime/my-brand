@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="admin.css">
+<title>Edit Blog</title>
+</head>
+<body>
+    <header>
+        <h1>ADMIN</h1>
+        <nav>
+          <img src="">
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+      </header>
+     <div class="container">
+    <h1>Edit Blog</h1>
+    <form action="/create-blog" method="post" enctype="multipart/form-data" id="blogForm">
+        <label for="title">Title:</label>
+        <input type="text" id="blogTitle" name="title" required>
+        <label for="description">Description:</label>
+        <textarea id="blogDescription" name="description" rows="5" required></textarea>
+        <!-- Custom file input button -->
+        <label for="image" class="custom-file-input">Choose Image</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <div class="file-name"></div>
+        <div class="image-preview">
+            <img id="preview" class="preview" src="" alt="Image Preview">
+        </div>
+        <input type="submit" value="Edit Blog">
+    </form>
+</div>
+
+
+<div id="customAlert" class="alertmodal">
+    <div class="alertmodal-content">
+      <span class="alertIcon"><img src="../images/alertIcon.png" class="alertIconimg"></span><br>
+      <span id="alertMessage"></span>
+      <div class="alertmodal-buttons">
+        <button id="okButton">OK</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+
+
+  const updateBlogForm = document.getElementById('blogForm');
+  const blogTitleInput = document.getElementById('blogTitle');
+  const blogContentInput = document.getElementById('blogDescription');
+
+
+    const fileInput = document.getElementById('image');
+    const customFileInput = document.querySelector('.custom-file-input');
+    const fileNameDisplay = document.querySelector('.file-name');
+    const previewImg = document.getElementById('preview');
+
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            fileNameDisplay.textContent = file.name;
+            const reader = new FileReader();
+            reader.onload = function() {
+                previewImg.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    customFileInput.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+   const queryParams = new URLSearchParams(window.location.search);
+   const blogId = queryParams.get('id'); 
+   
+   fetch(`http://localhost:3000/api/blogs/${blogId}`)
+  .then(response => response.json())
+  .then(blog => {
+    // Fill the form with the blog's current data
+    blogTitleInput.value = blog.title;
+    blogContentInput.value = blog.description;
+
+    // Display the current image
+    fileNameDisplay.textContent=`${blog.image}`;
+    previewImg.src = `../../Backend/public/images/${blog.image}`;
+    previewImg.alt = 'Current Image';
+  })
+  .catch(error => console.error('Error fetching blog data:', error));
+
+ });
+
+
+
+
+
+
+  updateBlogForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        if (!fileInput.value) {
+            alert('Please select an image.');
+            return;
+        }
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const blogId = queryParams.get('id');
+    const adminToken= localStorage.getItem('adminToken');
+    if (!adminToken) {
+        alert('Token not found. Please login again.');
+        return;
+    }
+        const formData = new FormData(blogForm);
+        try {
+            const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`, {
+                method: 'PUT',
+                headers: {
+                'Authorization': `Bearer ${adminToken}`, // Include the token in the request headers
+            },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Reset the form
+                showAlert(data.message);
+                
+            } else {
+                // Display server error message
+                showAlert(data.message);
+            }
+        } catch (error) {
+           
+            // Display generic error message
+            alert('An error occurred.');
+        }
+    });
+
+
+
+    function showAlert(message) {
+
+const customAlert = document.getElementById('customAlert');
+const alertMessage = document.getElementById('alertMessage');
+const okButton = document.getElementById('okButton');
+  alertMessage.textContent = message;
+  customAlert.style.display = 'block';
+}
+
+okButton.addEventListener('click', function() {
+  customAlert.style.display = 'none';
+});
+
+</script>
+</body>
+</html>

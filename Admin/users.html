@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Users List</title>
+<link rel="stylesheet" href="admin.css">
+<style>
+</style>
+</head>
+<body>
+    <header>
+        <h1>ADMIN</h1>
+        <nav>
+          <img src="">
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+      </header>
+<div class="usercontainer">
+    <h1>Users List</h1>
+    <table id="users">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        
+    </table>
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', async function() {
+          const usersList = document.getElementById('users');
+    const adminToken= localStorage.getItem('adminToken');
+    if (!adminToken) {
+        alert('Token not found. Please login again.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/api/auth/users', {
+                headers: {
+                'Authorization': `Bearer ${adminToken}`, // Include the token in the request headers
+        }  });
+        const data = await response.json();
+
+        if (response.ok) {
+            // Iterate over the blogs array and display title and description
+            data.forEach(users => {
+                const userItem = document.createElement('tbody');
+                userItem.innerHTML = `
+                <tr>
+                <td>${users.name}</td>
+                <td>${users.email}</td>
+               </tr>
+                `;
+                usersList.appendChild(userItem);
+            });
+        } else {
+            // Display server error message
+            console.error(data.message || 'An error occurred.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        // Display generic error message
+        alert('An error occurred.');
+    }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="admin.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Dashboard</title>
+</head>
+<body>
+    <body>
+        <header>
+          <h1>Aime Blog Admin</h1>
+          <nav>
+            <img src="">
+            <a href="../blogs.html">Back To front-end</a>
+          </nav>
+        </header>
+        <main>
+          <aside>
+            <h2>Admin Panel</h2>
+            <ul>
+              
+              <li><i class="fas fa-file-alt"></i><span>blogs: <span id="blogCount" class="count"></span></span></li>
+              <li><i class="fas fa-envelope"></i><span>Queries: <span id="queryCount" class="count"></span></span></li>
+              <li><i class="fas fa-user"></i><span>Subscriptions: <span id="subscriberCount" class="count"></span></span></li>
+              <li><i class="fas fa-user"></i><span>users: <span id="userCount" class="count"></span></span></li>
+              <li><a href="add-blog.html" class="side">Create New Blog</a></li>
+              <li><a href="users.html" class="side">View Users</a></li>
+              <li><a href="subscriptions.html" class="side">View Subscriptions</a></li>
+              <li><a href="querries.html" class="side">View Querries</a></li>
+            </ul>
+            
+          </aside>
+          <section id="blogList">
+           <h1>Current Blogs</h1>
+          </section>
+        </main>
+
+        <div id="customAlert" class="alertmodal">
+          <div class="alertmodal-content">
+            <span class="alertIcon"><img src="../images/alertIcon.png" class="alertIconimg"></span><br>
+            <span id="alertMessage"></span>
+            <div class="alertmodal-buttons">
+              <button id="okButton">OK</button>
+            </div>
+          </div>
+        </div>
+
+
+
+        <footer>
+          <p>© 2024 Aime Blog. All rights reserved.</p>
+         </footer>
+
+         <script>
+document.addEventListener('DOMContentLoaded', async function() {
+    const blogList = document.getElementById('blogList');
+
+    try {
+        // Function to fetch and update blog list
+        async function fetchAndUpdateBlogList() {
+            const response = await fetch('http://localhost:3000/api/blogs');
+            const data = await response.json();
+
+            if (response.ok) {
+                blogList.innerHTML = ''; // Clear existing blog list
+                data.forEach(blog => {
+                    const blogItem = document.createElement('article');
+                    blogItem.innerHTML = `
+                        <div class="data">
+                            <h3>${blog.title}</h3>
+                            <p><span class="date">Date: </span>2024-02-27</p>
+                            <p>${blog.description}</p>
+                            <a href="edit-blog.html?id=${blog._id}" class="edit">Edit</a>
+                            <button class="delete" id="delete" data-id="${blog._id}">Delete</button>
+                        </div>
+                        <div class="image">
+                            <img src="../../Backend/public/images/${blog.image}">
+                        </div>
+                    `;
+                    blogList.appendChild(blogItem);
+                });
+                deletebtn(); // Attach delete event listeners
+            } else {
+                console.error(data.message || 'An error occurred.');
+            }
+        }
+
+        // Initial fetch and update
+        await fetchAndUpdateBlogList();
+
+        // Set interval to update blog list every 1 second
+        setInterval(fetchAndUpdateBlogList, 1000);
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred.');
+    }
+});
+
+// Function to attach delete event listeners
+function deletebtn() {
+    const deleteBtns = document.querySelectorAll('.delete');
+    deleteBtns.forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', async function(event) {
+            const blogId = event.target.dataset.id;
+            const adminToken = localStorage.getItem('adminToken');
+            if (!adminToken) {
+                alert('Token not found. Please login again.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showAlert(data.message);
+                } else {
+                    alert(data.message || 'An error occurred.');
+                }
+            } catch (error) {
+                console.error('Error deleting blog:', error);
+                alert('An error occurred.');
+            }
+        });
+    });
+}
+
+// Function to fetch and update counts
+async function fetchCounts() {
+    try {
+        const response = await fetch('http://localhost:3000/api/countings', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any authorization headers if needed
+            }
+        });
+        const data = await response.json();
+        if (response.ok) {
+            document.getElementById('blogCount').textContent = data.blogCount;
+            document.getElementById('queryCount').textContent = data.queryCount;
+            document.getElementById('userCount').textContent = data.userCount;
+            document.getElementById('subscriberCount').textContent = data.subscriberCount;
+        } else {
+            console.error('Error:', data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Initial fetch and update counts
+fetchCounts();
+
+// Set interval to update counts every 1 second
+setInterval(fetchCounts, 1000);
+
+function showAlert(message) {
+    const customAlert = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    const okButton = document.getElementById('okButton');
+    alertMessage.textContent = message;
+    customAlert.style.display = 'block';
+    okButton.addEventListener('click', function() {
+        customAlert.style.display = 'none';
+    });
+}
+
+
+         </script>
+</body>
+</html>

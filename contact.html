@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Contact</title>
+</head>
+<body>
+    <div class="nav">
+        <input type="checkbox" id="nav-check">
+        <div class="nav-header">
+          <div class="nav-title">
+            Aimé
+          </div>
+        </div>
+        <div class="nav-btn">
+          <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+        
+        <div class="nav-links">
+          <a href="Homepage.html">HOME</a>
+          <a href="about.html">ABOUT</a>
+          <a href="portfolio.html">PORTFOLIO</a>
+          <a href="blogs.html">BLOG</a>
+          <a href="contact.html">CONTACT</a>
+          
+        </div>
+      </div>
+      <div class="header">
+        <p class="title cont">Contact Me</p>
+      </div>
+
+      <div class="contact-container">
+       <div class="form side">
+       <div class="tit">Send us a message</div>
+       <div class="inputs">
+        <form id="contact-form">
+          <input type="text" id="name" placeholder="Name" required>
+          <input type="email" id="email" placeholder="Email" required>
+          <input type="text" id="subject" placeholder="Subject" required>
+          <textarea id="message" rows="" placeholder="Message" required></textarea>
+          <input type="submit" value="SEND MESSAGE">
+        </form>
+        
+       </div>
+       </div>
+
+       <div class="infosec side">
+       <div class="infotit">Get in touch</div>
+       <div class="row">
+        <i class="fas fa-map-marker-alt"></i>
+        <div class="info">
+            <div class="head">Address</div>
+            <div class="sub-title">RWANDA</div>
+        </div>
+    </div>
+    <div class="row">
+      <i class="fas fa-phone"></i>
+      <div class="info">
+          <div class="head">Phone</div>
+          <div class="sub-title">+250780085493</div>
+      </div>
+  </div>
+    <div class="row">
+      <i class="fas fa-envelope"></i>
+      <div class="info">
+          <div class="head">Email</div>
+          <div class="sub-title">shyakaaime25@gmail.com</div>
+      </div>
+  </div>
+       </div>
+      </div>
+
+
+      <div id="customAlert" class="alertmodal">
+        <div class="alertmodal-content">
+          <span class="alertIcon"><img src="./images/alertIcon.png" class="alertIconimg"></span><br>
+          <span id="alertMessage"></span>
+          <div class="alertmodal-buttons">
+            <button id="okButton">OK</button>
+          </div>
+        </div>
+      </div>
+
+
+      <footer>
+  
+               <ul class="social-network social-circle">
+                 <!--<li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>-->
+                 <li><a href="https://www.facebook.com/aimebrues.shyaka" class="icoFacebook" title="Facebook" target="_blank" ><i class="fab fa-facebook"></i></a></li>
+                 <li><a href="https://twitter.com/SHYAKAAim1?s=07" class="icoTwitter" title="Twitter" target="_blank"><i class="fas fa-x-twitter"></i></a></li>
+                 <li><a href="https://www.instagram.com/_aimebrues/?hl=en" class="icoInstagram" title="instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                 <li><a href="https://www.youtube.com/channel/UC0TUlI9UixIj-GQyN0rA7oQ" class="icoYoutube" title="Youtube" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                 <li><a href="https://wa.me/<+250780085493> " class="icoWhatsapp" title="whatsapp" target="_blank"><i class="fab fa-whatsapp" ></i></a></li>
+               </ul>
+       
+           <span></span>  
+      </footer>
+
+
+      <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const subject = document.getElementById('subject').value;
+  const message = document.getElementById('message').value;
+
+  fetch('http://localhost:3000/api/contact', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name, email, subject, message })
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to send message');
+    }
+  })
+  .then(data => {
+    alert(data.message)
+    console.log(data.message);
+    // Optionally, display a success message to the user
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Optionally, display an error message to the user
+  });
+  // Reset the form after submission
+  document.getElementById('contact-form').reset();
+});
+
+      </script>
+</body>
+</html>

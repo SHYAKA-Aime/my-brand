@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="admin.css">
+<title>Submitted Queries</title>
+
+</head>
+<body>
+    <header>
+        <h1>ADMIN</h1>
+        <nav>
+          <img src="">
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+      </header>
+
+<div class="querrycontainer" id="querrycontainer">
+    <h1>Submitted Queries</h1>
+
+</div>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', async function() {
+    const querriesList = document.getElementById('querrycontainer');
+    const adminToken= localStorage.getItem('adminToken');
+    if (!adminToken) {
+        alert('Token not found. Please login again.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/api/messages', {
+                headers: {
+                'Authorization': `Bearer ${adminToken}`, // Include the token in the request headers
+        }  });
+        const data = await response.json();
+
+        if (response.ok) {
+            // Iterate over the blogs array and display title and description
+            data.forEach(messages => {
+                const msgItem = document.createElement('div');
+                msgItem.classList.add('query');
+                msgItem.innerHTML = `
+        <h2>Subject: ${messages.subject}</h2>
+        <p><strong>Name:</strong> ${messages.name}</p>
+        <p><strong>Email:</strong> ${messages.email}</p>
+        <p><strong>Message:</strong> ${messages.message}</p>
+                `;
+        querriesList.appendChild(msgItem);
+            });
+        } else {
+            // Display server error message
+            console.error(data.message || 'An error occurred.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        // Display generic error message
+        alert('An error occurred.');
+    }
+});
+
+</script>
+
+
+</body>
+</html>

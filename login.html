@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login & Registration Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="nav">
+        <input type="checkbox" id="nav-check">
+        <div class="nav-header">
+          <div class="nav-title">
+            Aimé
+          </div>
+        </div>
+        <div class="nav-btn">
+          <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+        
+        <div class="nav-links">
+          <a href="Homepage.html">HOME</a>
+          <a href="about.html">ABOUT</a>
+          <a href="portfolio.html">PORTFOLIO</a>
+          <a href="blogs.html">BLOG</a>
+          <a href="contact.html">CONTACT</a>
+          <a href="login.html">LOGIN</a>
+          <a href="profile.html" id="profile"><img src="../UI/images/avatar.png" class="avatar"/></a>
+        </div>
+      </div>
+
+
+  <div class="logcontainer">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Login</header>
+      <form action="#" id="login">
+        <input type="text" placeholder="Enter your email" id="logemail" required>
+        <div class="error" id="logmailerr"></div>
+        <input type="password" placeholder="Enter your password" id="logpassword" required>
+        <div class="error" id="logpasserr"></div>
+        <a href="#">Forgot password?</a><br>
+         <!-- <div class="err" id="logservererr"></div> -->
+        <input type="submit" class="button" value="Login">
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+         <label for="check">Signup</label>
+        </span>
+      </div>
+    </div>
+    <div class="registration form">
+      <header>Signup</header>
+      <form action="#" id="signup">
+        <input type="text" placeholder="Enter your Names" id="signname" required>
+        <input type="text" placeholder="Enter your email" id="signemail" required>
+        <div class="error" id="mailerr"></div>
+        <input type="password" placeholder="Create a password" id="signpassword" required>
+        <div class="error" id="passerr"></div>
+        <input type="password" placeholder="Confirm your password" id="signconfirmPassword" required>
+        <div class="error" id="conferr"><br>
+        <!-- <div class="err" id="signservererr"></div> -->
+        </div>
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check">Login</label>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="customAlert" class="alertmodal">
+    <div class="alertmodal-content">
+      <span class="alertIcon"><img src="./images/alertIcon.png" class="alertIconimg"></span><br>
+      <span id="alertMessage"></span>
+      <div class="alertmodal-buttons">
+        <button id="okButton">OK</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <footer class="log-footer">
+  
+    <ul class="social-network social-circle">
+      <!--<li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>-->
+      <li><a href="https://www.facebook.com/aimebrues.shyaka" class="icoFacebook" title="Facebook" target="_blank" ><i class="fab fa-facebook"></i></a></li>
+      <li><a href="https://twitter.com/SHYAKAAim1?s=07" class="icoTwitter" title="Twitter" target="_blank"><i class="fas fa-x-twitter"></i></a></li>
+      <li><a href="https://www.instagram.com/_aimebrues/?hl=en" class="icoInstagram" title="instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
+      <li><a href="https://www.youtube.com/channel/UC0TUlI9UixIj-GQyN0rA7oQ" class="icoYoutube" title="Youtube" target="_blank"><i class="fab fa-youtube"></i></a></li>
+      <li><a href="https://wa.me/<+250780085493> " class="icoWhatsapp" title="whatsapp" target="_blank"><i class="fab fa-whatsapp" ></i></a></li>
+    </ul>
+    <div class="subscribe">
+      <div class="subhead"><p>Subscribe To Our Updates</p></div>
+    <form>
+      <input type="text" placeholder="Full Name">
+      <input type="email" placeholder="Email">
+      <input type="submit" value="Subscribe">
+    </form>
+    </div>
+</footer>
+<script>
+ // Select form elements
+const signupForm = document.getElementById('signup');
+const loginForm = document.getElementById('login');
+const nameInput = document.getElementById('signname');
+const emailInput = document.getElementById('signemail');
+const passwordInput = document.getElementById('signpassword');
+const confirmPasswordInput = document.getElementById('signconfirmPassword');
+const mailerr = document.getElementById('mailerr');
+const passerr = document.getElementById('passerr');
+const conferr = document.getElementById('conferr');
+const logemail = document.getElementById('logemail');
+const logpassword = document.getElementById('logpassword');
+const logmailerr = document.getElementById('logmailerr');
+const logpasserr = document.getElementById('logpasserr');
+const profile = document.getElementById('profile');
+// const SignServerError=document.getElementById('signservererr');
+
+signupForm.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  let valid = true;
+
+  // Validation logic...
+
+  if (!validateEmail(emailInput.value)) {
+    mailerr.innerHTML = "Invalid Email!";
+    valid = false;
+  } else {
+    mailerr.innerHTML = "";
+  }
+
+  if (passwordInput.value.length < 6) {
+    passerr.innerHTML = "Password must be at least 6 characters";
+    valid = false;
+  } else {
+    passerr.innerHTML = "";
+  }
+
+  if (passwordInput.value !== confirmPasswordInput.value) {
+    conferr.innerHTML = "Passwords do not match";
+    valid = false;
+  } else {
+    conferr.innerHTML = "";
+  }
+
+  if (valid) {
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: nameInput.value, email: emailInput.value, password: passwordInput.value })
+      });
+
+      const data = await response.json();
+      console.log(data); // Log the response for debugging
+
+      if (response.ok) {
+        // Reset the form
+        showAlert(data.message);
+        signupForm.reset();
+        // Optionally, redirect to another page
+      } else {
+        // Display server error message
+        showAlert(data.message);
+      }
+    } catch (error) {
+      showAlert(error);
+    }
+  }
+});
+
+
+
+
+
+
+
+
+loginForm.addEventListener('submit', async function(event) {
+  let isAdmin=false;
+  event.preventDefault();
+
+  if (!validateEmail(logemail.value)) {
+    logmailerr.innerHTML = "Invalid Email!";
+    return; // Exit early if email is invalid
+  } else {
+    logmailerr.innerHTML = "";
+  }
+
+  if (logpassword.value.length < 6) {
+    logpasserr.innerHTML = "Password must be at least 6 characters";
+    return; // Exit early if password is too short
+  } else {
+    logpasserr.innerHTML = "";
+  }
+
+  try {
+    let loginRoute = 'http://localhost:3000/api/auth/login'; // Default to user login
+    if (logemail.value === "shyaka@admin.com" && logpassword.value === "admin123") {
+      loginRoute = 'http://localhost:3000/api/auth/adminlogin'; // Use admin login route for admin
+      isAdmin=true;
+    }
+
+    const response = await fetch(loginRoute, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: logemail.value, password: logpassword.value })
+    });
+
+    const data = await response.json();
+    console.log(data); // Log the response for debugging
+
+    // Reset the form
+    if(isAdmin==true){
+      if (response.ok) {
+        // Reset the form
+        localStorage.setItem('adminToken', data.token);
+        loginForm.reset();
+        showAlert(data.message);
+       window.location.href = data.redirectUrl;
+        // Optionally, redirect to another page
+      } else {
+        // Display server error message
+        showAlert(data.message);
+      }
+    }
+
+    if (response.ok) {
+        // Reset the form
+        localStorage.setItem('userToken', data.token);
+        loginForm.reset();
+        showAlert(data.message);
+        // Optionally, redirect to another page
+      } else {
+        // Display server error message
+        showAlert(data.message);
+      }
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(String(email).toLowerCase());
+}
+
+
+
+function showAlert(message) {
+
+const customAlert = document.getElementById('customAlert');
+const alertMessage = document.getElementById('alertMessage');
+const okButton = document.getElementById('okButton');
+  alertMessage.textContent = message;
+  customAlert.style.display = 'block';
+}
+
+okButton.addEventListener('click', function() {
+  customAlert.style.display = 'none';
+});
+
+
+</script>
+
+</body>
+</html>

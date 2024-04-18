@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscribers List</title>
+<link rel="stylesheet" href="admin.css">
+<style>
+</style>
+</head>
+<body>
+    <header>
+        <h1>ADMIN</h1>
+        <nav>
+          <img src="">
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+      </header>
+<div class="usercontainer">
+    <h1>Subscribers List</h1>
+    <table class="subscribers-list">
+        <thead>
+            <tr>
+                <th>Names</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+       
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+    const subscribersList = document.querySelector('.subscribers-list');
+
+    try {
+        const response = await fetch('http://localhost:3000/api/subscribers');
+        const data = await response.json();
+
+        if (response.ok) {
+            data.forEach(subscriber => {
+                const subscriberItem = document.createElement('tbody');
+                subscriberItem.innerHTML = `
+                <tr>
+                <td>${subscriber.fullName}</td>
+                <td>${subscriber.email}</td>
+               </tr>
+                `;
+                subscribersList.appendChild(subscriberItem);
+            });
+
+        } else {
+            console.error(data.message || 'An error occurred.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred.');
+    }
+});
+
+</script>
+</body>
+</html>
