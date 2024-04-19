@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const blogItem = document.createElement('li');
                 blogItem.classList.add('card');
                 blogItem.innerHTML = `
-                    <div class="img"><img src="https://mybrandbackend-gi30.onrender.com/public/images/${blog.image}" alt="img" draggable="false"></div>
+                    <div class="img"><img src="https://res.cloudinary.com/di67gv9fp/image/upload/${blog.image}" alt="img" draggable="false"></div>
                     <div class="description">
                         <h4>${blog.title}</h4>
                         
