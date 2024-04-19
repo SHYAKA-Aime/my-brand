@@ -90,7 +90,11 @@
         showAlert('Token not found. Please login again.');
         return;
     }
-        const formData = new FormData(blogForm);
+      const formData = new FormData();
+      formData.append('title', blogTitleInput.value);
+      formData.append('description',blogContentInput.value);
+      formData.append('image', fileInput.files[0]);
+
         try {
             const response = await fetch('https://mybrandbackend-gi30.onrender.com/api/blogs', {
                 method: 'POST',
