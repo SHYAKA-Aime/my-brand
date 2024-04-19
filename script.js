@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                  
               </div>
               <div class="bimage">
-                  <img src="../Backend/public/images/${blog.image}">
+                  <img src="https://res.cloudinary.com/di67gv9fp/image/upload/${blog.image}">
               </div>
           </div>
           <div class="bottom">
