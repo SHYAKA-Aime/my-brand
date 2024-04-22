@@ -142,6 +142,19 @@
   document.getElementById('contact-form').reset();
 });
 
+
+function showAlert(message) {
+
+const customAlert = document.getElementById('customAlert');
+const alertMessage = document.getElementById('alertMessage');
+const okButton = document.getElementById('okButton');
+  alertMessage.textContent = message;
+  customAlert.style.display = 'block';
+}
+
+okButton.addEventListener('click', function() {
+  customAlert.style.display = 'none';
+});
       </script>
 </body>
 </html>
