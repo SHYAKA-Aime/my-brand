@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred.');
     }
 });
 
@@ -164,7 +163,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred.');
     }
 
   });
@@ -241,7 +239,6 @@ const blogId = queryParams.get('id');
             // Update the UI to reflect the like
           } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred.');
           }
     });
     
@@ -314,7 +311,6 @@ async function loadComments() {
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred.');
         }
     }
 
@@ -353,7 +349,6 @@ document.getElementById('subscribeForm').addEventListener('submit', async functi
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred.');
     }
 });
 
