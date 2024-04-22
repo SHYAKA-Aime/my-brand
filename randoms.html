@@ -76,3 +76,49 @@ showAlert('This is a custom alert message.');
   </script>
 </body>
 </html>
+
+
+async function fetchAndUpdateComments() {
+  try {
+      const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}/comments`, {
+          headers: {
+              'Authorization': `Bearer ${userToken}`
+          },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+          // Clear existing comments before adding new ones
+          commentsContainer.innerHTML = '';
+          for (const comment of data) {
+              // Fetch user email based on comment.userId (assuming userId is the identifier)
+              const userResponse = await fetch(`https://mybrandbackend-gi30.onrender.com/api/auth/users/${comment.userId}`, {
+                  headers: {
+                      'Authorization': `Bearer ${userToken}`
+                  },
+              });
+              const userData = await userResponse.json();
+              if (userResponse.ok) {
+                  const userEmail = userData.email;
+                  const commentElement = document.createElement('div');
+                  commentElement.classList.add('cont');
+                  commentElement.innerHTML = `
+                      <div class="img"><img src="images/avatar.png"></div>
+                      <div class="cmnt">
+                          <div class="nam">${userEmail}</div>
+                          <div class="commented">${comment.comment}</div>
+                      </div>
+                  `;
+                  commentsContainer.appendChild(commentElement);
+              } else {
+                  console.error('Failed to fetch user data');
+              }
+          }
+      } else {
+          console.error(data.message || 'An error occurred.');
+      }
+  } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred.');
+  }
+}
