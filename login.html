@@ -31,8 +31,7 @@
           <a href="portfolio.html">PORTFOLIO</a>
           <a href="blogs.html">BLOG</a>
           <a href="contact.html">CONTACT</a>
-          <a href="login.html">LOGIN</a>
-          <a href="profile.html" id="profile"><img src="../UI/images/avatar.png" class="avatar"/></a>
+          <a href="login.html" id="loginLink">LOGIN</a>
         </div>
       </div>
 
@@ -192,7 +191,40 @@ signupForm.addEventListener('submit', async function(event) {
 
 
 
-loginForm.addEventListener('submit', async function(event) {
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const loginLink = document.getElementById('loginLink');
+
+  // Function to toggle between login link and logout button
+  function toggleLoginLogout(isLoggedIn) {
+    if (isLoggedIn) {
+      // Change to logout button
+      loginLink.innerHTML = 'LOGOUT';
+      loginLink.setAttribute('href', '#'); // Set href to '#' for logout action
+      loginLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        // Perform logout action (e.g., clear localStorage, redirect to login page)
+        localStorage.removeItem('userToken');
+        location.reload(); // Refresh the page to reflect changes
+      });
+    } else {
+      // Change back to login link
+      loginLink.innerHTML = 'LOGIN';
+      loginLink.setAttribute('href', 'login.html'); // Set href back to login page
+      loginLink.removeEventListener('click', function() {}); // Remove click event listener
+    }
+  }
+
+
+  const userToken = localStorage.getItem('userToken');
+  if (userToken) {
+    toggleLoginLogout(true); // User is logged in, show logout button
+  }
+
+
+  loginForm.addEventListener('submit', async function(event) {
   let isAdmin=false;
   event.preventDefault();
 
@@ -209,6 +241,8 @@ loginForm.addEventListener('submit', async function(event) {
   } else {
     logpasserr.innerHTML = "";
   }
+
+
 
   try {
     let loginRoute = 'https://mybrandbackend-gi30.onrender.com/api/auth/login'; // Default to user login
@@ -247,6 +281,7 @@ loginForm.addEventListener('submit', async function(event) {
         // Reset the form
         localStorage.setItem('userToken', data.token);
         loginForm.reset();
+        toggleLoginLogout(true);
         showAlert(data.message);
         // Optionally, redirect to another page
       } else {
@@ -258,6 +293,12 @@ loginForm.addEventListener('submit', async function(event) {
     console.error('Error:', error);
   }
 });
+
+});
+
+
+
+
 
 function validateEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

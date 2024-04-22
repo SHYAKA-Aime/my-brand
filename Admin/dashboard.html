@@ -13,6 +13,7 @@
           <nav>
             <img src="">
             <a href="../blogs.html">Back To front-end</a>
+            <a href="../blogs.html" id="loginLink">Admin Logout</a>
           </nav>
         </header>
         <main>
@@ -170,6 +171,20 @@ function showAlert(message) {
     });
 }
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const loginLink = document.getElementById('loginLink');
+
+  // Function to toggle between login link and logout butto
+      loginLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        // Perform logout action (e.g., clear localStorage, redirect to login page)
+        localStorage.removeItem('userToken');
+        window.location.href = '../index.html'; // Refresh the page to reflect changes
+      });
+   
+  });
 
          </script>
 </body>

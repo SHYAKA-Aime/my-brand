@@ -1,3 +1,31 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const loginLink = document.getElementById('loginLink');
+  
+    // Function to toggle between login link and logout button
+    function toggleLoginLogout(isLoggedIn) {
+      if (isLoggedIn) {
+        // Change to logout button
+        loginLink.innerHTML = 'LOGOUT';
+        loginLink.setAttribute('href', '#'); // Set href to '#' for logout action
+        loginLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          // Perform logout action (e.g., clear localStorage, redirect to login page)
+          localStorage.removeItem('userToken');
+          location.reload(); // Refresh the page to reflect changes
+        });
+      } else {
+        // Change back to login link
+        loginLink.innerHTML = 'LOGIN';
+        loginLink.setAttribute('href', 'login.html'); // Set href back to login page
+        loginLink.removeEventListener('click', function() {}); // Remove click event listener
+      }
+    }
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      toggleLoginLogout(true); // User is logged in, show logout button
+    }
+});
+
 
 
 document.addEventListener('DOMContentLoaded', async function() {

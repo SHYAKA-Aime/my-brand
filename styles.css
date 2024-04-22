@@ -38,7 +38,10 @@ body {
   float: right;
   font-size: 18px;
 }
-
+.nav > .nav-links #loginLink{
+  background:#F85E00;
+  color: #fff;
+}
 .nav > .nav-links > a {
   display: inline-block;
   padding: 13px 10px 13px 10px;
