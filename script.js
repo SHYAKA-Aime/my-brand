@@ -247,11 +247,17 @@ const blogId = queryParams.get('id');
     commentForm.addEventListener('submit', async function(event) {
     event.preventDefault();
     
-    const name = document.getElementById('name').value;
     const comment = document.getElementById('comment').value;
     const queryParams = new URLSearchParams(window.location.search);
     const blogId = queryParams.get('id');
     const userToken= localStorage.getItem('userToken');
+    const userInfoResponse = await fetch(`https://mybrandbackend-gi30.onrender.com/api/auth/userinfo`, {
+        headers: {
+            'Authorization': `Bearer ${userToken}`
+        },
+    });
+    const userInfo = await userInfoResponse.json();
+    const name=userInfo.name;
     try {
         const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}/comment`, {
             method: 'POST',
@@ -289,7 +295,7 @@ async function loadComments() {
                     'Authorization': `Bearer ${userToken}`
                 },
             });
-
+    
             const data = await response.json();
             if (response.ok) {
                 // Clear existing comments before adding new ones
@@ -304,7 +310,7 @@ async function loadComments() {
                             <div class="commented">${comment.comment}</div>
                         </div>
                     `;
-                    commentsContainer.appendChild(commentElement);
+                    commentsContainer.prepend(commentElement);
                 });
             } else {
                 console.error(data.message || 'An error occurred.');
@@ -313,6 +319,7 @@ async function loadComments() {
             console.error('Error:', error);
         }
     }
+    
 
     // Initial fetch and update for comments
     await fetchAndUpdateComments();
