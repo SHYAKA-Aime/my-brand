@@ -794,15 +794,17 @@ font-family: 'Ubuntu', sans-serif;
 }
 .buttons .button span{
   font-weight: bold;
-  
+  position: relative;
+  top: -20px;
 }
 .buttons button{
   position: relative;
-  font-size: 40px;
+  font-size: 60px;
   cursor: pointer;
   background: none;
   outline: none;
   border: none;
+  top: -20px;
 }
 .buttons button i{
   height: 100%;
