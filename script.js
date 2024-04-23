@@ -11,7 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
           event.preventDefault();
           // Perform logout action (e.g., clear localStorage, redirect to login page)
           localStorage.removeItem('userToken');
-          location.reload(); // Refresh the page to reflect changes
+          showAlert("You have logged out");
+          setTimeout(() => {
+            location.reload(); // Refresh the page to reflect changes
+          }, 4000); 
         });
       } else {
         // Change back to login link
