@@ -180,8 +180,8 @@ document.addEventListener('DOMContentLoaded', async function() {
           <div class="btext">
           <p>${blog.description}</p>
               <div class="buttons">
-                  <div class="button"><span class="likespan">${blog.likes}</span><button id="likeBtn"><i class="fas fa-heart"></i></button></div>
-                  <div class="button"><span class="commentspan"></span><button id="commentBtn"><i class="fas fa-comment"></i></button></div>
+                  <div class="button"><span class="likespan">${blog.likes}</span><button id="likeBtn"><i class="fas fa-heart"></i><br>Likes</button></div>
+                  <div class="button"><span class="commentspan"></span><button id="commentBtn"><i class="fas fa-comment"></i> <br>Comments</button><br></div>
               </div>
           </div>
        </div>

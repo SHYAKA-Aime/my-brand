@@ -802,7 +802,7 @@ font-family: 'Ubuntu', sans-serif;
 }
 .buttons button{
   position: relative;
-  font-size: 60px;
+  font-size: 20px;
   cursor: pointer;
   background: none;
   outline: none;
@@ -814,11 +814,12 @@ font-family: 'Ubuntu', sans-serif;
   width: 100%;
   margin: 0;
   padding: 0;
+  font-size: 30px;
 }
 .buttons #commentBtn:hover{
   color: #F85E00;
 }
-.buttons #likeBtn.liked{
+.buttons #likeBtn.liked i{
   color: #F85E00; /* Liked color */
 }
 .commentsSection{
