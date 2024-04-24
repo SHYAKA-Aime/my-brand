@@ -809,6 +809,10 @@ font-family: 'Ubuntu', sans-serif;
   border: none;
   top: -20px;
 }
+.buttons .button .commentspan{
+  position: relative;
+  left: 25px;
+}
 .buttons button i{
   height: 100%;
   width: 100%;

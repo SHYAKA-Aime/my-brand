@@ -159,10 +159,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     const blogId = queryParams.get('id');
     const blogDetailsContainer = document.querySelector('.bcontainer');
     const likeButton=document.getElementById('likeBtn');
-  
+    let blog;
     try {
       const response = await fetch(`https://mybrandbackend-gi30.onrender.com/api/blogs/${blogId}`);
-      const blog = await response.json();
+      blog = await response.json();
   
       if (response.ok) {
         // Display the blog details in your HTML
@@ -181,12 +181,12 @@ document.addEventListener('DOMContentLoaded', async function() {
           <p>${blog.description}</p>
               <div class="buttons">
                   <div class="button"><span class="likespan">${blog.likes}</span><button id="likeBtn"><i class="fas fa-heart"></i><br>Likes</button></div>
-                  <div class="button"><span class="commentspan"></span><button id="commentBtn"><i class="fas fa-comment"></i> <br>Comments</button><br></div>
+                  <div class="button"><span class="commentspan">${blog.commentCount}</span><button id="commentBtn"><i class="fas fa-comment"></i> <br>Comments</button><br></div>
               </div>
           </div>
        </div>
         `;
-        
+
         userbuttons();
         loadComments();
       } else {
@@ -198,8 +198,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   });
 
-  
 
+  
 
 function userbuttons(){
 
