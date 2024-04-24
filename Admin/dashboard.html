@@ -53,8 +53,16 @@
          </footer>
 
          <script>
-document.addEventListener('DOMContentLoaded', async function() {
+    document.addEventListener('DOMContentLoaded', async function() {
     const blogList = document.getElementById('blogList');
+    const adminToken = localStorage.getItem('adminToken');
+
+    if (!adminToken) {
+    window.location.href = '../login.html'; // Redirect to blogs page if adminToken is not present
+    return;
+    }
+
+
 
     try {
         // Function to fetch and update blog list
@@ -180,7 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         // Perform logout action (e.g., clear localStorage, redirect to login page)
         localStorage.removeItem('userToken');
-        window.location.href = '../index.html'; // Refresh the page to reflect changes
+        localStorage.removeItem('adminToken');
+        window.location.href = '../blogs.html'; // Refresh the page to reflect changes
       });
    
   });
