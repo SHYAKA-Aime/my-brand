@@ -274,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showAlert(data.message);
        window.location.href = data.redirectUrl;
         // Optionally, redirect to another page
+        return;
       } else {
         // Display server error message
         showAlert(data.message);
