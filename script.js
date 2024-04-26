@@ -335,7 +335,7 @@ async function loadComments() {
                     const commentElement = document.createElement('div');
                     commentElement.classList.add('cont');
                     commentElement.innerHTML = `
-                        <div class="img"><img src="images/avatar.png"></div>
+                        <div class="img"><img src="images/avatar.jpg"></div>
                         <div class="cmnt">
                             <div class="nam">${comment.name}</div>
                             <div class="commented">${comment.comment}</div>
