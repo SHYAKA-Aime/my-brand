@@ -1100,6 +1100,34 @@ footer{
 .skills .skills-content .column{
   width: calc(80% - 30px);
 }
+
+.subscribe .subhead p{
+  color: #111;
+  font-size: large;
+  font-weight: 500;
+}
+.subscribe input{
+margin: 7px;
+padding: 10px;
+outline: none;
+border: 1px solid #000;
+font-family: 'Ubuntu', sans-serif;
+display: flex;
+position: relative;
+left: 23%;
+justify-content: center;
+align-items: center;
+
+}
+.subscribe input[type=submit]{
+  border: none;
+  outline: none;
+  background:crimson;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  left:39%;
+}
 }
 @media only screen and (min-width: 600px) {
   .right img{
